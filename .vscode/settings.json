@@ -1,0 +1,26 @@
+{
+  "files.associations": {
+    "*.ejs": "html"
+  },
+  "emmet.includeLanguages": {
+    "ejs": "html"
+  },
+  "html.format.templating": true,
+  "html.format.wrapLineLength": 120,
+  "html.format.indentInnerHtml": true,
+  "html.format.indentHandlebars": false,
+  "html.format.preserveNewLines": true,
+  "[ejs]": {
+    "editor.defaultFormatter": "vscode.html-language-features",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 8,
+    "editor.insertSpaces": true
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+  "prettier.disableLanguages": ["ejs"]
+}
+

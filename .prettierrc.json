@@ -1,0 +1,18 @@
+{
+  "tabWidth": 8,
+  "useTabs": false,
+  "printWidth": 120,
+  "htmlWhitespaceSensitivity": "ignore",
+  "overrides": [
+    {
+      "files": "*.ejs",
+      "options": {
+        "parser": "html",
+        "tabWidth": 8,
+        "htmlWhitespaceSensitivity": "ignore",
+        "singleAttributePerLine": false
+      }
+    }
+  ]
+}
+

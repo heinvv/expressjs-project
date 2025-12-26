@@ -11,9 +11,10 @@
 
 <body>
         <%- include( '../partials/header.ejs' ) %>
-                <main>
-                        <%- body %>
-                </main>
+                <%- include( '../partials/errorMessage.ejs' ) %>
+                        <main>
+                                <%- body %>
+                        </main>
 </body>
 
 </html>
