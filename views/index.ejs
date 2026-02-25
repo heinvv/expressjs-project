@@ -1,1 +1,6 @@
-Middle
+<% books.forEach( book=> { %>
+        <div>
+                <%= book.title %>
+                <img src="<%= book.coverImagePath %>" alt="<%= book.title %>" height="150" width="100" />
+        </div>
+<% }) %>

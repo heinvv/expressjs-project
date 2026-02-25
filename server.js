@@ -23,6 +23,7 @@ const mongoose = require('mongoose');
 function encodeConnectionString(url) {
     try {
         const urlObj = new URL(url);
+
         if (urlObj.password) {
             urlObj.password = encodeURIComponent(urlObj.password);
             return urlObj.toString();
@@ -54,4 +55,3 @@ app.use( '/authors', authorRouter );
 app.use( '/books', bookRouter );
 
 app.listen(process.env.PORT || 3001);
-

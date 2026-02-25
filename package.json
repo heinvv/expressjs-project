@@ -9,6 +9,7 @@
   "scripts": {
     "start": "node server.js",
     "devStart": "nodemon server.js",
+    "db": "mongod --dbpath=/Users/heinvv/data/db",
     "format": "prettier --write \"**/*.js\"",
     "format:check": "prettier --check \"**/*.js\""
   },
@@ -21,7 +22,9 @@
     "ejs": "^3.1.10",
     "express": "^5.2.1",
     "express-ejs-layouts": "^2.5.1",
-    "mongoose": "^8.0.0"
+    "fs": "^0.0.1-security",
+    "mongoose": "^8.0.0",
+    "multer": "^2.0.2"
   },
   "devDependencies": {
     "dotenv": "^17.2.3",

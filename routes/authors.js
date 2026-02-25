@@ -4,9 +4,11 @@ const Author = require('../models/author');
 
 router.get( '/', async( req, res ) => {
     let searchOptions = {};
+
     if ( !! req?.query?.name ) {
         searchOptions.name = new RegExp( req.query.name, 'i' );
     }
+
     try {
         const authors = await Author.find(searchOptions);
         res.render( 'authors/index', { 
@@ -26,6 +28,7 @@ router.post( '/', async ( req, res ) => {
     const author = new Author({
         name: req.body.name
     });
+
     try {
         const newAuthor = await author.save();
         res.redirect( '/authors' );
