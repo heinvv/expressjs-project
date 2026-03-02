@@ -23,6 +23,7 @@
     "express": "^5.2.1",
     "express-ejs-layouts": "^2.5.1",
     "fs": "^0.0.1-security",
+    "method-override": "^3.0.0",
     "mongoose": "^8.0.0",
     "multer": "^2.0.2"
   },

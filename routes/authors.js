@@ -1,6 +1,7 @@
 const express = require( 'express' );
 const router = express.Router();
 const Author = require('../models/author');
+const Book = require('../models/book');
 
 router.get( '/', async( req, res ) => {
     let searchOptions = {};
@@ -31,7 +32,7 @@ router.post( '/', async ( req, res ) => {
 
     try {
         const newAuthor = await author.save();
-        res.redirect( '/authors' );
+        res.redirect( `/authors/${newAuthor.id}` );
     } catch ( err ) {
         res.render( 'authors/new',{ 
             author: author, 
@@ -40,12 +41,68 @@ router.post( '/', async ( req, res ) => {
     }
 });
 
-// router.get( '/:id', ( req, res ) => {
-//     res.send( 'Author' );
-// });
+router.get( '/:id', async ( req, res ) => {
+    try {
+        const author = await Author.findById(req.params.id);
+        const books = await Book.find({ author: author.id }).limit(6).exec();
+        res.render( 'authors/show', { 
+            author: author, 
+            booksByAuthor: books 
+        });
+    } catch ( err ) {
+        console.error(err);
+        res.redirect( '/');
+    }
+});
 
-// router.put( '/:id', ( req, res ) => {
-//     res.send( 'Author' );
-// });
+router.get( '/:id/edit', async ( req, res ) => {
+    try {
+        const author = await Author.findById(req.params.id);
+        author.name = author.name || '';
+        await author.save();
+        res.render( 'authors/edit', { author: author });
+    } catch ( err ) {
+        res.render( 'authors/new',{ 
+            author: author, 
+            errorMessage: 'Error creating author'
+        } );
+    }
+});
+
+router.put( '/:id', async ( req, res ) => {
+    let author;
+
+    try {
+        author = await Author.findById(req.params.id);
+        author.name = req.body.name;
+        await author.save();
+        res.redirect( `/authors/${author.id}` );
+    } catch ( err ) {
+        if ( ! author ) {
+            return res.redirect( '/');
+        }
+
+        res.render( 'authors/edit',{ 
+            author: author, 
+            errorMessage: 'Error creating author'
+        } );
+    }   
+});
+
+router.delete( '/:id', async ( req, res ) => {
+    let author;
+
+    try {
+        author = await Author.findById(req.params.id);
+        await author.remove();
+        res.redirect( `/authors` );
+    } catch ( err ) {
+        if ( ! author ) {
+            return res.redirect( '/');
+        }
+
+        res.redirect( `/authors/${author.id}` );
+    }
+});
 
 module.exports = router;
