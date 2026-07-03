@@ -4,12 +4,6 @@ Review of `new2026/` as it stood after teams GET/POST were built and manually
 tested in Postman. Covers `server.js`, `routes/teams.js`, `routes/matches.js`,
 `models/team.js`, and the views.
 
-## Bug to fix first
-
-[server.js:26-52](../server.js#L26-L52) defines `encodeConnectionString`
-**twice**, identically. Harmless (the second just overwrites the first) but
-it's dead code from a copy-paste — delete one copy.
-
 ## What to focus on, in order
 
 ### 1. Edit/delete on teams
@@ -62,17 +56,3 @@ easiest place to write correct assertions.
   beyond the `if (process.env.DATABASE_URL)` guard in server.js — fine for a
   study project, just know real apps usually fail fast on missing required
   env vars rather than warning and limping on.
-- **`public/assets/*.html`** (the original static mockups) and the real EJS
-  views now duplicate the same markup. Not urgent, but worth deleting the
-  static ones once matches.ejs is fully wired, so there's only one source of
-  truth for markup.
-
-## Class-based approach
-
-Not necessary for a two-model CRUD app this size — Mongoose models and thin
-route handlers already give you the separation a class would. If wanted as a
-deliberate exercise (e.g. practicing controller classes for an interview),
-the natural refactor is a `TeamController` class wrapping the handler
-methods and instantiated once in the router — but do that *after* matches
-CRUD + tests, not before, so the restructuring isn't chasing a moving
-target.
