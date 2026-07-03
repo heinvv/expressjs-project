@@ -76,17 +76,43 @@ router.post( '/', upload.single('coverImage'), async ( req, res ) => {
         }
 });
 
+router.get( '/:id', async ( req, res ) => {
+        try {
+                const book = await Book.findById( req.params.id ).populate('author').exec();
+                res.render( 'books/show', { book: book } );
+        } catch {
+                res.redirect( '/' );
+        }
+});
+
+router.get( '/:id/edit', async ( req, res ) => {
+        try {
+                const book = await Book.findById( req.params.id );
+                renderEditPage( res, book );
+        } catch {
+                res.redirect( '/books' );
+        }
+});
+
 async function renderNewPage( res, book, hasError = false ) {
+        renderFormPage( res, book, 'new', hasError );
+}
+
+async function renderEditPage( res, book, hasError = false ) {
+        renderFormPage( res, book, 'edit', hasError );
+}
+
+async function renderFormPage( res, book, form, hasError = false ) {
         try {
                 const authors = await Author.find({});
 
-                const parameters = {
+                const params = {
                         book: book,
                         authors: authors,
                         errorMessage: hasError ? 'Error creating book' : null,
                 }
 
-                res.render( 'books/new', parameters );
+                res.render( `books/${form}`, params );
         } catch {
                 res.redirect( '/books' );
         }

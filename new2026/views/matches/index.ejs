@@ -1,0 +1,36 @@
+ <section class="card">
+      <h2>Register a Match</h2>
+      <form id="match-form" class="form">
+        <div class="field-row">
+          <div class="field">
+            <label for="team-a">Team 1</label>
+            <select id="team-a" name="teamA" required>
+              <option value="">Select a team&hellip;</option>
+              <option value="FC Barcelona">FC Barcelona</option>
+              <option value="Real Madrid">Real Madrid</option>
+            </select>
+          </div>
+          <div class="field field-goals">
+            <label for="goals-a">Goals</label>
+            <input type="number" id="goals-a" name="goalsA" min="0" value="0" required />
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="team-b">Team 2</label>
+            <select id="team-b" name="teamB" required>
+              <option value="">Select a team&hellip;</option>
+              <option value="FC Barcelona">FC Barcelona</option>
+              <option value="Real Madrid">Real Madrid</option>
+            </select>
+          </div>
+          <div class="field field-goals">
+            <label for="goals-b">Goals</label>
+            <input type="number" id="goals-b" name="goalsB" min="0" value="0" required />
+          </div>
+        </div>
+
+        <button type="submit">Register Match</button>
+      </form>
+</section>

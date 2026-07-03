@@ -24,7 +24,14 @@
         <% books.forEach( book=> { %>
                 <div>
                         <%= book.title %>
-                        <img src="<%= book.coverImagePath %>" alt="<%= book.title %>" height="150" width="100" />
+                        <img src="<%= book.coverImagePath %>" alt="<%= book.title %>" style="max-width: 200px; width: 100%; height: auto;" />
+                        <div>
+                                <a href="/books/<%= book.id %>">View</a>
+                                <a href="/books/<%= book.id %>/edit">Edit</a>
+                                <%- include( '../partials/deleteForm', {
+                                        url: `/books/${book.id}`,
+                                } ) %>
+                        </div>
                 </div>
         <% }) %>
 </div>

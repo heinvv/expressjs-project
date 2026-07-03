@@ -11,7 +11,7 @@
         <h3>Books by Author</h3>
         <ul>
                 <% booksByAuthor.forEach(book => { %>
-                        <li><a href="/books/<%= book.id %>"><%= book.title %><img src="<%= book.coverImagePath %>" alt="<%= book.title %>" /></a></li>
+                        <li><a href="/books/<%= book.id %>"><%= book.title %><img src="<%= book.coverImagePath %>" alt="<%= book.title %>" style="max-width: 200px; width: 100%; height: auto;"/></a></li>
                 <% }) %>
         </ul>
 <% } else { %>

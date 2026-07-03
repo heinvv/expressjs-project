@@ -16,7 +16,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Express.js app with MongoDB, Mongoose, EJS layouts, and REST-style routes for authors and books.",
   "dependencies": {
     "body-parser": "^2.2.1",
     "ejs": "^3.1.10",
@@ -24,13 +24,25 @@
     "express-ejs-layouts": "^2.5.1",
     "fs": "^0.0.1-security",
     "method-override": "^3.0.0",
-    "mongoose": "^8.0.0",
+    "mongoose": "^8.24.1",
     "multer": "^2.0.2"
   },
   "devDependencies": {
-    "dotenv": "^17.2.3",
+    "dotenv": "^17.4.2",
     "js-beautify": "^1.15.4",
-    "nodemon": "^3.1.11",
+    "nodemon": "^3.1.14",
     "prettier": "^3.7.4"
-  }
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heinvv/expressjs-project.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/heinvv/expressjs-project/issues"
+  },
+  "homepage": "https://github.com/heinvv/expressjs-project#readme"
 }
