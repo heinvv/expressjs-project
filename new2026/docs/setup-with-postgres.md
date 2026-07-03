@@ -13,38 +13,53 @@ Treat this as a separate branch of the exercise from [setup.md](setup.md)
 ## 1. Prerequisites
 
 - Node.js >= 18 (`node -v`)
-- PostgreSQL running locally (or a remote connection string)
+- Docker Desktop (or another Docker engine) running
 
-## 2. Install PostgreSQL (macOS)
+## 2. Start PostgreSQL in Docker
 
-```bash
-brew install postgresql@16
-brew services start postgresql@16
+From `new2026/`, [`docker-compose.yml`](../docker-compose.yml) defines a single
+`postgres:16` service with the database, user, and password pre-created via
+env vars — no manual `createdb`/`psql` step needed:
+
+```yaml
+services:
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: soccer_study
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
 ```
 
-Confirm it's running and find your default connection user:
+Start it:
 
 ```bash
-psql postgres -c '\du'
+cd new2026
+docker compose up -d
 ```
+
+Confirm it's healthy:
+
+```bash
+docker compose ps
+docker compose logs postgres   # look for "database system is ready to accept connections"
+```
+
+The named volume (`postgres_data`) persists data across `docker compose down`
+/ `up` cycles. To wipe it and start fresh: `docker compose down -v`.
 
 ## 3. Create the database
 
-```bash
-createdb soccer_study
-```
-
-Or from `psql`:
-
-```bash
-psql postgres
-```
-
-```sql
-CREATE DATABASE soccer_study;
-\l              -- confirm it's listed
-\q
-```
+Already done — `POSTGRES_DB: soccer_study` in the compose file creates it on
+first container start. Skip ahead to installing dependencies.
 
 ## 4. Install dependencies
 
@@ -66,13 +81,13 @@ Add a Postgres connection string alongside (or instead of) the Mongo one in
 `new2026/.env`:
 
 ```
-DATABASE_URL=postgres://localhost:5432/soccer_study
+DATABASE_URL=postgres://postgres:postgres@localhost:5432/soccer_study
 PORT=3001
 ```
 
-If your local Postgres user needs a password, use
-`postgres://user:password@localhost:5432/soccer_study` — URL-encode any
-special characters in the password, same caveat as the Mongo setup.
+`postgres:postgres` matches the `POSTGRES_USER`/`POSTGRES_PASSWORD` in
+`docker-compose.yml`. If you change those, URL-encode any special characters
+in the password, same caveat as the Mongo setup.
 
 ## 6. Connect with Sequelize
 
@@ -166,14 +181,14 @@ Mongo version — update those references to `team.id`.
 npm run devStart
 ```
 
-Watch the console for `Connected to Database`. If it fails, double check
-Postgres is running (`brew services list`) and that `soccer_study` exists
-(`psql -l`).
+Watch the console for `Connected to Database`. If it fails, double check the
+container is running (`docker compose ps`) and check its logs
+(`docker compose logs postgres`).
 
 ## 10. Inspect data directly (optional)
 
 ```bash
-psql soccer_study
+docker compose exec postgres psql -U postgres -d soccer_study
 ```
 
 ```sql

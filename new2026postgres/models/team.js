@@ -1,10 +1,11 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../db');
 
-const teamSchema = new mongoose.Schema({
+const Team = sequelize.define('Team', {
     name: {
-        type: String,
-        required: true,
-    }
-}); 
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+});
 
-module.exports = mongoose.model('Team', teamSchema);
+module.exports = Team;

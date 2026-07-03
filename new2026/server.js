@@ -37,20 +37,6 @@ function encodeConnectionString(url) {
     }
 }
 
-function encodeConnectionString(url) {
-    try {
-        const urlObj = new URL(url);
-
-        if (urlObj.password) {
-            urlObj.password = encodeURIComponent(urlObj.password);
-            return urlObj.toString();
-        }
-        return url;
-    } catch (error) {
-        return url;
-    }
-}
-
 if (process.env.DATABASE_URL) {
     const connectionString = encodeConnectionString(process.env.DATABASE_URL);
     

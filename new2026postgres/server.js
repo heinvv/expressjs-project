@@ -5,7 +5,6 @@ if ( process.env.NODE_ENV !== 'production' ) {
 const express = require('express');
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
-const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 
 const indexRouter = require('./routes/index');
@@ -37,32 +36,16 @@ function encodeConnectionString(url) {
     }
 }
 
-function encodeConnectionString(url) {
-    try {
-        const urlObj = new URL(url);
-
-        if (urlObj.password) {
-            urlObj.password = encodeURIComponent(urlObj.password);
-            return urlObj.toString();
-        }
-        return url;
-    } catch (error) {
-        return url;
-    }
-}
-
 if (process.env.DATABASE_URL) {
     const connectionString = encodeConnectionString(process.env.DATABASE_URL);
     
-    mongoose.connect(connectionString)
-        .then(() => console.log('Connected to Database'))
-        .catch((error) => {
-            console.error('Database connection error:', error.message);
-            console.error('Please check your DATABASE_URL configuration. Ensure special characters in the password are URL-encoded.');
-        });
+    const sequelize = require('./db');
 
-    const db = mongoose.connection;
-    db.on('error', (error) => console.error('Database error:', error));
+    sequelize.authenticate()
+        .then(() => console.log('Connected to Database'))
+        .catch((error) => console.error('Database connection error:', error.message));
+
+        sequelize.sync();
 } else {
     console.warn('Warning: DATABASE_URL not set. Database features will be unavailable.');
 }
