@@ -1,0 +1,21 @@
+<section class="card">
+  <h2>Current teams</h2>
+  <ul>
+    <% teams.forEach( team=> { %>
+        <li>
+                <%= team.name %> [Edit] [Delete]
+        </li>
+  <% }) %>
+  </ul>
+</section>
+
+<section class="card">
+      <h2>Register a Team</h2>
+      <form id="team-form" class="form" method="POST" action="/teams">
+        <div class="field">
+          <label for="team-name">Team Name</label>
+          <input type="text" id="team-name" name="name" placeholder="e.g. FC Barcelona" required />
+        </div>
+        <button type="submit">Register Team</button>
+      </form>
+</section>

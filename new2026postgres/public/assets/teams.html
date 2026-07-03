@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register a Team - Soccer League</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>Soccer League</h1>
+    <p class="subtitle">Express.js study project</p>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="teams.html" aria-current="page">Register Team</a>
+      <a href="matches.html">Register Match</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Register a Team</h2>
+      <form id="team-form" class="form">
+        <div class="field">
+          <label for="team-name">Team Name</label>
+          <input type="text" id="team-name" name="name" placeholder="e.g. FC Barcelona" required />
+        </div>
+        <button type="submit">Register Team</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Form is static for now &mdash; wire it up to your Express routes as you build the API. See docs/setup.md.</p>
+  </footer>
+</body>
+</html>
